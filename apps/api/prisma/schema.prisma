@@ -1,0 +1,120 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums para Tipagem Forte
+enum Role {
+  ADMIN
+  STUDENT
+}
+
+enum ExerciseType {
+  STRENGTH
+  CARDIO
+  FLEXIBILITY
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+  UNSPECIFIED
+}
+
+enum DayOfWeek {
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+  SUN
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String   // Stored as a bcrypt hash
+  name      String
+  role      Role     @default(STUDENT)
+  gender    Gender?  @default(UNSPECIFIED)
+  birthDate DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(true)
+
+  // Relacionamentos
+  attendances Attendance[]
+  workouts    Workout[]
+  notifications Notification[]
+
+  @@map("users")
+}
+
+model Attendance {
+  id        String   @id @default(uuid())
+  checkIn   DateTime @default(now())
+  userId    String
+  
+  // Relacionamento
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("attendances")
+}
+
+model Workout {
+  id          String   @id @default(uuid())
+  title       String   // Ex: "Treino A - Hipertrofia"
+  description String?
+  dayOfWeek   DayOfWeek?
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relacionamentos
+  user      User       @relation(fields: [userId], references: [id])
+  exercises Exercise[]
+
+  @@map("workouts")
+}
+
+model Exercise {
+  id          String       @id @default(uuid())
+  name        String       // Ex: "Supino Reto"
+  sets        Int
+  reps        String       // String para permitir faixas, ex: "10-12"
+  weight      Float?       // Carga em kg (opcional)
+  restTime    Int?         // Tempo de descanso em segundos
+  type        ExerciseType @default(STRENGTH)
+  workoutId   String
+
+  // Relacionamento
+  workout     Workout      @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+
+  @@map("exercises")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  type      String
+  content   String
+  read      Boolean  @default(false)
+  response  String?
+  respondedAt DateTime?
+  userId    String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("notifications")
+}
+
