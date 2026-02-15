@@ -1,0 +1,53 @@
+﻿<div class="login-container">
+  <section class="promo-panel">
+    <p class="eyebrow">Siga Performance Club</p>
+    <h1>O ambiente transforma.</h1>
+    <p class="promo-copy">
+      Controle presenca, treinos e comunicacao com uma experiencia visual direta e de alta energia.
+    </p>
+    <div class="promo-stats">
+      <div>
+        <strong>24/7</strong>
+        <span>Acesso rapido</span>
+      </div>
+      <div>
+        <strong>100%</strong>
+        <span>Gestao centralizada</span>
+      </div>
+      <div>
+        <strong>1 painel</strong>
+        <span>Time e alunos</span>
+      </div>
+    </div>
+  </section>
+
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Acesso ao sistema</mat-card-title>
+      <mat-card-subtitle>Gestao inteligente da academia</mat-card-subtitle>
+    </mat-card-header>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email" type="email" placeholder="seu@email.com">
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">E-mail invalido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput formControlName="password" type="password">
+        </mat-form-field>
+
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading">
+          {{ isLoading ? 'Entrando...' : 'Acessar painel' }}
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>
