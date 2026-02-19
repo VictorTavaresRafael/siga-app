@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-backend-url'
+  apiUrl: 'siga-app-production.up.railway.app'
 };
