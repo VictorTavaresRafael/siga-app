@@ -9,6 +9,15 @@ import { LoginDto } from './dto/login.dto';
 export class AuthService {
   constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
+  private async comparePassword(plainText: string, hashed: string): Promise<boolean> {
+    try {
+      return await bcrypt.compare(plainText, hashed);
+    } catch {
+      // Legacy/corrupted hashes should not crash login route.
+      return false;
+    }
+  }
+
   async signup(dto: RegisterDto) {
     // delegate user creation to UsersService (which hashes password)
     const user = await this.usersService.create(dto as any);
@@ -19,7 +28,7 @@ export class AuthService {
     const user = await this.usersService.findByEmail(email);
     if (!user) return null;
 
-    const match = await bcrypt.compare(password, user.password);
+    const match = await this.comparePassword(password, user.password);
     if (!match) return null;
 
     // strip password
@@ -33,7 +42,7 @@ export class AuthService {
     if (!user) throw new UnauthorizedException('Invalid credentials');
     if (!user.isActive) throw new UnauthorizedException('Invalid credentials');
 
-    const valid = await bcrypt.compare(dto.password, user.password);
+    const valid = await this.comparePassword(dto.password, user.password);
     if (!valid) throw new UnauthorizedException('Invalid credentials');
 
     const payload = { sub: user.id, email: user.email, role: user.role };
