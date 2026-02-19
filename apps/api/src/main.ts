@@ -9,6 +9,9 @@ async function bootstrap() {
 	
 	const app = await NestFactory.create(AppModule);
 
+	// Railway/Reverse proxy: required for correct client IP handling (rate limiter).
+	app.getHttpAdapter().getInstance().set('trust proxy', 1);
+
 	app.use(helmet({
 		contentSecurityPolicy: false,
 	}));
