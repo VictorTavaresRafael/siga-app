@@ -30,10 +30,14 @@ import { Router } from '@angular/router';
     </div>
   `,
   styles: [`
-    .scan-shell { display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 64px); padding: 24px; }
+    .scan-shell { display: flex; justify-content: center; align-items: center; min-height: calc(100dvh - 64px); padding: 12px; }
     .scan-card { width: 100%; max-width: 560px; text-align: center; padding-bottom: 12px; border-radius: 18px; border: 1px solid rgba(225, 6, 0, 0.42); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.38); }
-    zxing-scanner { width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); border: 1px solid #2c2c2c; }
+    zxing-scanner { width: 100%; max-height: 58dvh; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); border: 1px solid #2c2c2c; }
     .feedback { padding: 10px; color: #93c5fd; font-weight: 700; }
+    @media (min-width: 721px) {
+      .scan-shell { padding: 24px; }
+      zxing-scanner { max-height: none; }
+    }
   `]
 })
 export class CheckInComponent {

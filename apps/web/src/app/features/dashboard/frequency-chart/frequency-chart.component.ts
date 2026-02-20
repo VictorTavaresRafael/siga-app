@@ -88,11 +88,18 @@ import { jsPDF } from 'jspdf';
   `,
   styles: [
     `.chart-card { margin-top: 0; padding: 10px 6px 4px; border-radius: 12px; border: none; box-shadow: none; background: transparent !important; }
-     .chart-container { height: 320px; }
-     .filters { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-     .filter { width: 200px; margin-bottom: 12px; }
-     .export-actions { display: flex; gap: 8px; align-items: center; margin-left: auto; }
-     .export-btn { min-width: 138px; }`
+     .chart-container { height: 280px; }
+     .filters { display: grid; grid-template-columns: 1fr; gap: 8px; align-items: end; }
+     .filter { width: 100%; margin-bottom: 0; }
+     .export-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+     .export-btn { min-width: 0; width: 100%; }
+     @media (min-width: 721px) {
+       .chart-container { height: 320px; }
+       .filters { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+       .filter { width: 200px; margin-bottom: 12px; }
+       .export-actions { display: flex; width: auto; margin-left: auto; }
+       .export-btn { min-width: 138px; width: auto; }
+     }`
   ]
 })
 export class FrequencyChartComponent {

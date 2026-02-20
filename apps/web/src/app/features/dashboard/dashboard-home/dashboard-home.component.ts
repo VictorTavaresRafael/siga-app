@@ -224,15 +224,15 @@ const DAYS = [
   `,
   styles: [
     `
-      .dashboard-shell { padding: 24px; max-width: 1100px; margin: 0 auto; }
+      .dashboard-shell { padding: 16px; max-width: 1100px; margin: 0 auto; }
       .hero { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(225, 6, 0, 0.45); }
       .subtitle { color: #ff9b95; margin-top: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
       .tabs-card { border-radius: 18px; padding: 8px 8px 16px; border: 1px solid rgba(225, 6, 0, 0.34); box-shadow: 0 20px 42px rgba(0, 0, 0, 0.42); }
-      .panel-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: 10px; }
+      .panel-grid { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 10px; }
       .panel { border-radius: 16px; border: 1px solid #2d2d2d; box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3); background: linear-gradient(180deg, #171717, #101010) !important; }
       .panel .mat-mdc-card-subtitle { color: #bdbdbd !important; opacity: 1 !important; }
       .panel .mat-mdc-card-title { color: #fff !important; }
-      .day-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      .day-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
       .day-card { padding: 16px; border-radius: 16px; border: 1px solid #2f2f2f; background: linear-gradient(180deg, #181818, #101010); display: grid; gap: 12px; }
       .day-card.today { border-color: #e10600; box-shadow: 0 16px 34px rgba(225, 6, 0, 0.24); }
       .day-card.completed { border-color: #d97706; }
@@ -250,10 +250,10 @@ const DAYS = [
       .empty { color: #9ca3af; }
       .support-form, .profile-form { display: grid; gap: 16px; }
       .profile-form .actions,
-      .support-form button { justify-self: end; min-width: 170px; }
+      .support-form button { justify-self: stretch; min-width: 0; width: 100%; }
       .response { padding: 12px; border-bottom: 1px solid #2d2d2d; }
       .response:last-child { border-bottom: none; }
-      .response-header { display: flex; justify-content: space-between; align-items: center; }
+      .response-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
       .date { font-size: 12px; color: #9ca3af; }
       .question { margin: 6px 0; }
       .answer { color: #ff9b95; font-weight: 700; }
@@ -261,9 +261,18 @@ const DAYS = [
       .response.pending-item { background: rgba(245, 158, 11, 0.08); border-left: 3px solid #f59e0b; }
       .actions { display: flex; justify-content: flex-end; }
       .muted { color: #a3a3a3; }
+      @media (min-width: 721px) {
+        .dashboard-shell { padding: 24px; }
+        .panel-grid { gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .day-grid { gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+        .profile-form .actions,
+        .support-form button { justify-self: end; width: auto; min-width: 170px; }
+      }
       @media (max-width: 720px) {
-        .dashboard-shell { padding: 16px; }
         .hero { flex-direction: column; align-items: flex-start; gap: 6px; }
+        .tabs-card { padding: 6px 6px 12px; }
+        .day-card-header { flex-direction: column; }
+        .day-chip-group { justify-items: start; }
       }
     `
   ]
@@ -598,6 +607,10 @@ export class DashboardHomeComponent implements OnInit {
       @media (max-width: 720px) {
         .modal-exercise { grid-template-columns: 1fr; }
         .exercise-right { justify-content: flex-start; }
+        .series-counter { grid-template-columns: 28px minmax(72px, auto) 28px; }
+        .series-count { min-width: 72px; }
+        .modal-actions { flex-direction: column; }
+        .modal-actions button { width: 100%; }
       }
     `,
   ],

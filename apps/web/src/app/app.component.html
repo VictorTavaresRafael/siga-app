@@ -1,13 +1,15 @@
 <mat-toolbar class="app-toolbar" *ngIf="isLoggedIn">
   <span class="brand">SIGA</span>
   <span class="spacer"></span>
-  <a mat-button class="app-link" routerLink="/admin" routerLinkActive="is-active" *ngIf="role === 'ADMIN'">Admin</a>
-  <a mat-button class="app-link" routerLink="/dashboard" routerLinkActive="is-active" *ngIf="role === 'STUDENT'">Treinos</a>
-  <a mat-button class="app-link" routerLink="/check-in" routerLinkActive="is-active" *ngIf="role === 'STUDENT'">Check-in</a>
-  <button mat-stroked-button color="primary" class="logout-btn" (click)="logout()">
-    <mat-icon>logout</mat-icon>
-    Sair
-  </button>
+  <div class="app-nav">
+    <a mat-button class="app-link" routerLink="/admin" routerLinkActive="is-active" *ngIf="role === 'ADMIN'">Admin</a>
+    <a mat-button class="app-link" routerLink="/dashboard" routerLinkActive="is-active" *ngIf="role === 'STUDENT'">Treinos</a>
+    <a mat-button class="app-link" routerLink="/check-in" routerLinkActive="is-active" *ngIf="role === 'STUDENT'">Check-in</a>
+    <button mat-stroked-button color="primary" class="logout-btn" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Sair
+    </button>
+  </div>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

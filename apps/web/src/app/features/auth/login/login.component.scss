@@ -1,11 +1,11 @@
 .login-container {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(340px, 460px);
-  gap: 28px;
+  grid-template-columns: 1fr;
+  gap: 16px;
   align-items: center;
-  min-height: 100vh;
-  padding: 32px;
+  min-height: 100dvh;
+  padding: 16px;
 }
 
 .login-container::before {
@@ -25,8 +25,8 @@
 }
 
 .promo-panel {
-  padding: 34px;
-  border-radius: 22px;
+  padding: 22px;
+  border-radius: 18px;
   border: 1px solid rgba(225, 6, 0, 0.5);
   background: linear-gradient(160deg, rgba(23, 23, 23, 0.95), rgba(12, 12, 12, 0.92));
   box-shadow: 0 24px 56px rgba(0, 0, 0, 0.4);
@@ -43,8 +43,8 @@
 
 h1 {
   margin: 10px 0 8px;
-  font-size: clamp(36px, 4.8vw, 58px);
-  line-height: 0.95;
+  font-size: clamp(28px, 8.5vw, 58px);
+  line-height: 1;
   color: #fff;
 }
 
@@ -52,13 +52,13 @@ h1 {
   margin: 0;
   max-width: 56ch;
   color: #d5d5d5;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .promo-stats {
-  margin-top: 24px;
+  margin-top: 16px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
@@ -72,7 +72,7 @@ h1 {
 }
 
 .promo-stats strong {
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1;
   color: #fff;
 }
@@ -86,14 +86,14 @@ h1 {
 
 .login-card {
   width: 100%;
-  padding: 22px;
-  border-radius: 22px;
+  padding: 14px;
+  border-radius: 18px;
   border: 1px solid rgba(225, 6, 0, 0.55);
   box-shadow: 0 24px 56px rgba(0, 0, 0, 0.42);
 }
 
 mat-card-title {
-  font-size: 34px;
+  font-size: clamp(34px, 11vw, 42px);
   line-height: 1;
 }
 
@@ -108,7 +108,7 @@ mat-form-field {
 
 button {
   width: 100%;
-  padding: 10px;
+  min-height: 44px;
   border-radius: 10px;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -150,8 +150,7 @@ button {
 
 @media (max-width: 960px) {
   .login-container {
-    grid-template-columns: 1fr;
-    padding: 20px;
+    padding: 16px;
   }
 
   .promo-panel {
@@ -159,6 +158,39 @@ button {
   }
 
   .promo-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 961px) {
+  .login-container {
+    grid-template-columns: minmax(0, 1.2fr) minmax(340px, 460px);
+    gap: 28px;
+    padding: 32px;
+  }
+
+  .promo-panel {
+    padding: 34px;
+    border-radius: 22px;
+  }
+
+  .login-card {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .promo-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .promo-stats {
     grid-template-columns: 1fr;
+  }
+
+  .login-container {
+    padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
   }
 }

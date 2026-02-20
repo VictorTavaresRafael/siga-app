@@ -86,23 +86,28 @@ import { AnalyticsService } from '../../../core/services/analytics.service';
   `,
   styles: [
     `
-      .admin-shell { padding: 24px; max-width: 1200px; margin: 0 auto; }
+      .admin-shell { padding: 16px; max-width: 1200px; margin: 0 auto; }
       .hero { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(225, 6, 0, 0.45); }
       .subtitle { color: #ff9b95; margin-top: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
       .tabs-card { border-radius: 18px; padding: 8px 8px 16px; border: 1px solid rgba(225, 6, 0, 0.34); box-shadow: 0 20px 42px rgba(0, 0, 0, 0.42); }
-      .grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 20px; margin-top: 10px; }
+      .grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 10px; }
       .panel { padding: 10px; border-radius: 16px; border: 1px solid #2d2d2d; box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3); }
       .chart-panel { grid-column: 1 / -1; }
-      .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+      .kpis { display: grid; grid-template-columns: 1fr; gap: 10px; }
       .kpi { padding: 14px; border-radius: 14px; border: 1px solid #2f2f2f; background: linear-gradient(180deg, #181818, #101010); box-shadow: 0 16px 28px rgba(0, 0, 0, 0.32); display: grid; gap: 6px; }
       .kpi-label { color: #b7b7b7; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
-      .kpi-value { font-size: 24px; color: var(--siga-text); }
+      .kpi-value { font-size: 22px; color: var(--siga-text); }
       .qr-code { font-weight: 600; margin-bottom: 10px; color: var(--siga-text); }
-      .qr-image { width: 240px; height: 240px; object-fit: contain; border-radius: 12px; border: 1px solid #313131; background: #fff; }
+      .qr-image { width: min(100%, 240px); height: auto; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 12px; border: 1px solid #313131; background: #fff; }
+      @media (min-width: 721px) {
+        .admin-shell { padding: 24px; }
+        .grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 20px; }
+        .kpis { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+        .kpi-value { font-size: 24px; }
+      }
       @media (max-width: 720px) {
-        .admin-shell { padding: 16px; }
         .hero { flex-direction: column; align-items: flex-start; gap: 6px; }
-        .grid { grid-template-columns: 1fr; }
+        .tabs-card { padding: 6px 6px 12px; }
       }
     `
   ]

@@ -96,18 +96,18 @@ import { StudentProfileDialogComponent } from '../student-profile-dialog/student
   `,
   styles: [
     `
-      .student-card { padding: 20px; border-radius: 16px; border: 1px solid #2e2e2e; box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32); }
+      .student-card { padding: 14px; border-radius: 16px; border: 1px solid #2e2e2e; box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32); }
       .header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap; }
       .muted { color: var(--siga-muted); margin: 4px 0 0; }
-      .filter { width: 320px; margin: 12px 0; }
+      .filter { width: 100%; max-width: 320px; margin: 12px 0; }
       .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid #2f2f2f; background: linear-gradient(180deg, #151515, #101010); }
       .actions { display: flex; gap: 4px; }
       .name-btn { padding: 0; min-width: auto; }
-      table { width: 100%; min-width: 640px; border-collapse: collapse; background: #111 !important; }
+      table { width: 100%; min-width: 560px; border-collapse: collapse; background: #111 !important; }
       .mat-mdc-table { background: #111 !important; }
       .mdc-data-table__content { background: #111 !important; }
       .mdc-data-table__row, .mdc-data-table__header-row { background: #111 !important; }
-      th, td { padding: 12px 16px; color: #efefef; }
+      th, td { padding: 10px 12px; color: #efefef; }
       .mat-mdc-header-cell, .mat-mdc-cell { color: #efefef !important; border-bottom-color: #2a2a2a !important; }
       th { color: #ff9b95; font-weight: 700; }
       tr.mat-header-row { background: #111111; }
@@ -130,6 +130,8 @@ import { StudentProfileDialogComponent } from '../student-profile-dialog/student
       }
 
       @media (max-width: 720px) {
+        .student-card { padding: 12px; }
+        .header button { width: 100%; }
         .filter { width: 100%; }
       }
     `
@@ -179,7 +181,8 @@ export class StudentListComponent implements OnInit {
 
   createStudent() {
     const dialogRef = this.dialog.open(StudentCreateDialogComponent, {
-      width: '420px',
+      width: '92vw',
+      maxWidth: '420px',
       panelClass: 'admin-modal',
     });
 
@@ -190,7 +193,8 @@ export class StudentListComponent implements OnInit {
 
   editStudent(student: AdminStudent) {
     const dialogRef = this.dialog.open(StudentEditDialogComponent, {
-      width: '420px',
+      width: '92vw',
+      maxWidth: '420px',
       panelClass: 'admin-modal',
       data: student,
     });
@@ -202,7 +206,8 @@ export class StudentListComponent implements OnInit {
 
   editWorkout(student: AdminStudent) {
     const dialogRef = this.dialog.open(WorkoutEditorComponent, {
-      width: '720px',
+      width: '94vw',
+      maxWidth: '720px',
       panelClass: 'workout-modal',
       data: student,
     });
@@ -218,7 +223,8 @@ export class StudentListComponent implements OnInit {
 
   openProfile(student: AdminStudent) {
     this.dialog.open(StudentProfileDialogComponent, {
-      width: '560px',
+      width: '94vw',
+      maxWidth: '560px',
       panelClass: 'admin-modal',
       data: student,
     });

@@ -35,6 +35,7 @@ body {
     radial-gradient(circle at 85% 6%, rgba(225, 6, 0, 0.2), transparent 38%),
     linear-gradient(145deg, #050505, #101010 55%, #090909);
   color: var(--siga-text);
+  overflow-x: hidden;
 }
 
 h1,
@@ -49,6 +50,13 @@ h3,
 a {
   text-decoration: none;
   color: inherit;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 mat-card,
@@ -251,5 +259,23 @@ mat-expansion-panel {
 @media (max-width: 720px) {
   mat-card {
     border-radius: 14px;
+  }
+
+  .mat-mdc-tab-group .mdc-tab .mdc-tab__text-label {
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+
+  .mat-mdc-tab-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: linear-gradient(180deg, #131313, #101010);
+  }
+
+  .workout-modal .mat-mdc-dialog-surface,
+  .admin-modal .mat-mdc-dialog-surface {
+    border-radius: 14px;
+    padding: 12px 12px 14px;
   }
 }
