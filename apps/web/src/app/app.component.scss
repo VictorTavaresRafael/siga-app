@@ -59,14 +59,20 @@
 
 @media (max-width: 720px) {
   .app-toolbar {
-    min-height: 62px;
-    flex-wrap: wrap;
-    gap: 8px;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'brand'
+      'nav';
+    align-items: start;
+    gap: 6px;
     padding: 8px 10px 10px;
   }
 
   .brand {
-    flex: 1 0 auto;
+    grid-area: brand;
+    display: block;
     font-size: 22px;
   }
 
@@ -75,9 +81,12 @@
   }
 
   .app-nav {
+    grid-area: nav;
+    min-width: 0;
     width: 100%;
     overflow-x: auto;
     padding-bottom: 2px;
+    gap: 4px;
   }
 
   .app-link {
@@ -88,5 +97,7 @@
   .logout-btn {
     margin-left: auto;
     white-space: nowrap;
+    flex: 0 0 auto;
+    min-height: 38px;
   }
 }
