@@ -11,29 +11,6 @@ Este projeto foi construido para demonstrar capacidade de entregar software comp
 - experiencia do usuario orientada por perfil (ADMIN e STUDENT)
 - documentacao e setup reproduzivel para avaliacao tecnica
 
-## Processo de construcao (3 sprints)
-
-### Sprint 1 - Estudo tecnico e definicao de arquitetura
-
-- Estudo dirigido das tecnologias exigidas no desafio: Angular, NestJS, Prisma e PostgreSQL.
-- Definicao da arquitetura da solucao (web + api), estrategia de autenticacao e modelo de dados.
-- Prototipacao das entidades principais: usuarios, treinos, exercicios, presenca e notificacoes.
-- Planejamento de backlog de desenvolvimento para duas iteracoes de entrega.
-
-### Sprint 2 - Desenvolvimento do nucleo do produto
-
-- Implementacao da API com autenticacao JWT e RBAC por papel.
-- Implementacao do frontend com rotas protegidas, guardas por perfil e fluxo de login.
-- Entrega dos fluxos principais: check-in diario, dashboard, listagem de alunos e gestao de treinos.
-- Setup de seed para gerar ambiente funcional com dados de teste.
-
-### Sprint 3 - Evolucao funcional, qualidade e deploy
-
-- Inclusao de notificacoes e modulo de analytics com series e exportacao CSV.
-- Integracao com ExerciseDB (RapidAPI) para suporte a consulta de exercicios.
-- Aplicacao de hardening baseline (Helmet, rate limiting, CORS configuravel).
-- Publicacao e ajustes de ambiente para deploy web/API.
-
 ## Arquitetura
 
 - `apps/web`: frontend Angular 21 (standalone components, Angular Material, RxJS, Chart.js).
