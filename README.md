@@ -28,8 +28,8 @@ flowchart LR
 
 ## Funcionalidades
 
-- Login com JWT e segregação por perfil (`ADMIN`, `STUDENT`).
-- Check-in diário por QR Code (código no formato `SIGA-YYYY-MM-DD`).
+- Login com JWT e segregação por perfil (`ADMIN`, `STUDENT`); contas de aluno são criadas pelo administrador.
+- Check-in diário por QR Code: o código muda todo dia, é assinado com HMAC-SHA256 no servidor e segue o fuso de Brasília.
 - Gestão de alunos: cadastro, atualização, perfil e desativação.
 - Gestão de treinos por aluno, com exercícios estruturados.
 - Painel analítico com séries temporais e exportação CSV.
