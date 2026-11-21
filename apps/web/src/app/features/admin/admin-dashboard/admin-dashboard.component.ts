@@ -9,6 +9,7 @@ import { StudentListComponent } from '../student-list/student-list.component';
 import { NotificationsPanelComponent } from '../notifications-panel/notifications-panel.component';
 import { NotificationsService } from '../../../core/services/notifications.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { AttendanceService } from '../../../core/services/attendance.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -57,7 +58,7 @@ import { AnalyticsService } from '../../../core/services/analytics.service';
                 </mat-card-header>
                 <mat-card-content>
                   <p class="qr-code">{{ dailyCode }}</p>
-                  <img class="qr-image" [src]="qrCodeUrl" alt="QR Code do dia" />
+                  <img *ngIf="qrCodeUrl" class="qr-image" [src]="qrCodeUrl" alt="QR Code do dia" />
                 </mat-card-content>
               </mat-card>
 
@@ -115,15 +116,27 @@ import { AnalyticsService } from '../../../core/services/analytics.service';
 export class AdminDashboardComponent implements OnInit {
   private notificationsService = inject(NotificationsService);
   private analyticsService = inject(AnalyticsService);
+  private attendanceService = inject(AttendanceService);
   private cdr = inject(ChangeDetectorRef);
 
-  dailyCode = this.buildDailyCode();
-  qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(this.dailyCode)}`;
+  dailyCode = '';
+  qrCodeUrl = '';
   unreadCount = 0;
   summary = { studentsActive: 0, checkInsToday: 0, pendingQuestions: 0 };
   ngOnInit(): void {
     this.refreshUnread();
     this.loadSummary();
+    this.loadDailyCode();
+  }
+
+  loadDailyCode() {
+    this.attendanceService.getDailyCode().subscribe(({ code }) => {
+      queueMicrotask(() => {
+        this.dailyCode = code;
+        this.qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(code)}`;
+        this.cdr.markForCheck();
+      });
+    });
   }
 
   refreshUnread() {
@@ -142,11 +155,6 @@ export class AdminDashboardComponent implements OnInit {
         this.cdr.markForCheck();
       });
     });
-  }
-
-  private buildDailyCode() {
-    const day = new Date().toISOString().slice(0, 10);
-    return `SIGA-${day}`;
   }
 }
 
