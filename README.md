@@ -1,46 +1,57 @@
-# SIGA - Sistema Integrado de Gestao de Academia
+# SIGA — Sistema Integrado de Gestão de Academia
 
-SIGA e uma aplicacao full stack para operacao de academia, com autenticacao JWT, controle de acesso por perfil, check-in diario por QR Code, gestao de alunos e treinos, notificacoes e analiticos com exportacao CSV.
+[![CI](https://github.com/VictorTavaresRafael/siga-app/actions/workflows/ci.yml/badge.svg)](https://github.com/VictorTavaresRafael/siga-app/actions/workflows/ci.yml)
 
-## Objetivo do projeto
+Aplicação full stack para a gestão da academia do câmpus da UTFPR: autenticação JWT, controle de acesso por perfil, check-in diário por QR Code, gestão de alunos e treinos, notificações e painel analítico com exportação CSV.
 
-Este projeto foi construido para demonstrar capacidade de entregar software completo, com foco em:
+Trabalho de Conclusão de Curso em Engenharia de Software (UTFPR, Cornélio Procópio), aprovado em 09/07/2026 e **indicado pela banca como trabalho destaque** para prêmios e concursos de TCC.
 
-- arquitetura modular no backend e frontend
-- seguranca baseline para aplicacao web real
-- experiencia do usuario orientada por perfil (ADMIN e STUDENT)
-- documentacao e setup reproduzivel para avaliacao tecnica
+## Stack
+
+| Camada | Tecnologias |
+| --- | --- |
+| Front-end (`apps/web`) | Angular 21 (standalone components), Angular Material, RxJS, Chart.js |
+| Back-end (`apps/api`) | NestJS 11, Prisma ORM, PostgreSQL, Passport JWT, Swagger |
+| Segurança | bcrypt, Helmet, rate limiting (express-rate-limit), validação com class-validator |
+| Qualidade | Testes de serviço com `node:test`, CI no GitHub Actions (build + testes) |
 
 ## Arquitetura
 
-- `apps/web`: frontend Angular 21 (standalone components, Angular Material, RxJS, Chart.js).
-- `apps/api`: backend NestJS 11 com Prisma ORM e PostgreSQL.
-- CI: pipeline no GitHub Actions para build de `web` e `api` em push/PR.
+```mermaid
+flowchart LR
+  A[Angular 21 SPA<br/>apps/web] -->|REST + JWT| B[NestJS 11 API<br/>apps/api]
+  B --> C[(PostgreSQL<br/>via Prisma)]
+  B --> D[API externa<br/>ExerciseDB]
+  A -. QR Code .-> E[Check-in diário]
+  E --> B
+```
 
-## Principais funcionalidades
+## Funcionalidades
 
-- Login com JWT e segregacao por perfil (`ADMIN`, `STUDENT`).
-- Check-in diario por QR Code (codigo no formato `SIGA-YYYY-MM-DD`).
-- Gestao de alunos (cadastro, atualizacao, perfil e desativacao).
-- Gestao de treinos por aluno, com exercicios estruturados.
-- Painel de analytics com series e exportacao CSV.
-- Canal de notificacoes aluno -> administracao com resposta.
-- Consulta assistida de exercicios via API externa.
+- Login com JWT e segregação por perfil (`ADMIN`, `STUDENT`).
+- Check-in diário por QR Code (código no formato `SIGA-YYYY-MM-DD`).
+- Gestão de alunos: cadastro, atualização, perfil e desativação.
+- Gestão de treinos por aluno, com exercícios estruturados.
+- Painel analítico com séries temporais e exportação CSV.
+- Canal de notificações aluno → administração, com resposta.
+- Consulta assistida de exercícios via API externa.
 
 ## Como executar localmente
+
+Pré-requisitos: Node.js 20 e PostgreSQL.
 
 ### 1) API (`apps/api`)
 
 ```bash
 cd apps/api
 npm install
-cp .env.example .env
+cp .env.example .env   # ajuste DATABASE_URL e JWT_SECRET
 npx prisma migrate dev
 npx prisma db seed
 npm run start:dev
 ```
 
-API e Swagger: `http://localhost:3333` e `http://localhost:3333/api`
+API: `http://localhost:3333` · Swagger: `http://localhost:3333/api`
 
 ### 2) Web (`apps/web`)
 
@@ -50,14 +61,27 @@ npm install
 npm start
 ```
 
-Web local: `http://localhost:4200`
+Web: `http://localhost:4200`
 
-## Credenciais de seed
+### Testes
+
+```bash
+cd apps/api
+npm test
+```
+
+## Credenciais de seed (somente ambiente local)
+
+Criadas por `npx prisma db seed` no seu banco local:
 
 - Admin: `admin@siga.com.br` / `siga123`
-- Aluno exemplo: `aluno1@siga.com.br` / `siga123`
+- Aluno de exemplo: `aluno1@siga.com.br` / `siga123`
 
-## Documentacao detalhada
+## Documentação detalhada
 
-- Backend: `apps/api/README.md`
-- Frontend: `apps/web/README.md`
+- Back-end: [`apps/api/README.md`](apps/api/README.md)
+- Front-end: [`apps/web/README.md`](apps/web/README.md)
+
+## Autor
+
+Víctor Matheus Tavares Rafael · [LinkedIn](https://www.linkedin.com/in/victor-tavares-rafael-a13846236/) · [GitHub](https://github.com/VictorTavaresRafael)
