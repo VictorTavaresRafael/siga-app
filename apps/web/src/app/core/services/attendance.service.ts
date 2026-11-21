@@ -32,6 +32,11 @@ export class AttendanceService {
         return this.http.post(`${this.API_URL}/check-in`, { qrCode });
     }
 
+    // Código assinado do QR do dia (somente ADMIN)
+    getDailyCode(): Observable<{ day: string; code: string }> {
+        return this.http.get<{ day: string; code: string }>(`${this.API_URL}/daily-code`);
+    }
+
     // Verifica se o aluno já realizou check-in hoje
     hasCheckInToday(): Observable<{ checkedIn: boolean }> {
         return this.http.get<{ checkedIn: boolean }>(`${this.API_URL}/me/today`);

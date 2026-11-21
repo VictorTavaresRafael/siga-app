@@ -4,6 +4,8 @@ import { AttendanceService } from './attendance.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Role } from '@prisma/client';
+import { getJwtSecret } from '../auth/jwt-secret';
+import { buildDailyCode, isValidDailyCode, localDay } from './daily-code';
 
 @Controller('attendance')
 @UseGuards(JwtAuthGuard)
@@ -14,13 +16,18 @@ export class AttendanceController {
   @Roles(Role.STUDENT)
   async checkIn(@Req() req: Request, @Body() body: { qrCode?: string }) {
     const user = req.user as any;
-    const expectedCode = this.buildDailyCode();
 
-    if (!body?.qrCode || body.qrCode !== expectedCode) {
+    if (!isValidDailyCode(body?.qrCode, this.checkInSecret())) {
       throw new BadRequestException('QR Code inválido');
     }
 
     return this.attendanceService.registerCheckIn(user.id);
+  }
+
+  @Get('daily-code')
+  @Roles(Role.ADMIN)
+  getDailyCode() {
+    return { day: localDay(), code: buildDailyCode(this.checkInSecret()) };
   }
 
   @Get('me/today')
@@ -39,9 +46,7 @@ export class AttendanceController {
     return this.attendanceService.getFrequency(safeDays);
   }
 
-  private buildDailyCode() {
-    const today = new Date();
-    const day = today.toISOString().slice(0, 10);
-    return `SIGA-${day}`;
+  private checkInSecret() {
+    return process.env.CHECKIN_SECRET?.trim() || getJwtSecret();
   }
 }

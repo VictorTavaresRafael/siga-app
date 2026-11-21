@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
+import { startOfLocalDay } from './daily-code';
 
 @Injectable()
 export class AttendanceService {
@@ -64,8 +65,6 @@ export class AttendanceService {
   }
 
   private startOfToday() {
-    const start = new Date();
-    start.setHours(0, 0, 0, 0);
-    return start;
+    return startOfLocalDay();
   }
 }
