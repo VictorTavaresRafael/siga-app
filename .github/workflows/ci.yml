@@ -24,3 +24,7 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: apps/${{ matrix.app }}
+      - name: Test
+        if: matrix.app == 'api'
+        run: node --test test/*.test.js
+        working-directory: apps/api
